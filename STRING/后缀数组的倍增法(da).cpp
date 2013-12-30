@@ -87,6 +87,7 @@ int lcp(int l,int r)
     if(l>r) swap(l,r);  
     int a=l+1,b=r;  
     int k=Log[b-a+1];  
+    /// k=floor(log(b-a+1.0)/log(2.0));
     return min(dp[a][k],dp[b-(1<<k)+1][k]);  
 }  
   
