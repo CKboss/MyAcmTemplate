@@ -25,7 +25,7 @@ void dijkstra()
         int mark=-1,mindis=INF;
         for(int j=1;j<=N;j++)
         {
-            if(!vis[i]&&dist[j]<mindis)
+            if(!vis[j]&&dist[j]<mindis)
             {
                 mindis=dist[j];
                 mark=j;
