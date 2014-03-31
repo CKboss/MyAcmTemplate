@@ -2,7 +2,7 @@
 扩展KMP
 next[i]: P[i..m-1] 与 P[0..m-1]的最长公共前缀
 ex[i]: T[i..n-1] 与 P[0..m-1]的最长公共前缀
-×/
+*/
 
 char T[maxn],P[maxn];  
 int next[maxn],ex[maxn];  
