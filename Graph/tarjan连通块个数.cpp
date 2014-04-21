@@ -47,7 +47,7 @@ void tarjan(int u)
 			tarjan(v);
 			Low[u]=min(Low[u],Low[v]);
 		}
-		else if(Instack[v])
+		else
 		{
 			Low[u]=min(Low[u],DFN[v]);
 		}
