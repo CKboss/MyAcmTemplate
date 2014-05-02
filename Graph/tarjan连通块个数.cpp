@@ -47,7 +47,7 @@ void tarjan(int u)
 			tarjan(v);
 			Low[u]=min(Low[u],Low[v]);
 		}
-		else
+		else if(Instack[v]) //判断一下那些没有构成联通分量的结点
 		{
 			Low[u]=min(Low[u],DFN[v]);
 		}
