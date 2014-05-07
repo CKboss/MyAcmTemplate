@@ -394,6 +394,21 @@ void REVOLVE(int l,int r,int t)
 }
 
 
-
+void Remove_Root()//删掉根结点
+{
+    if(ch[root][1]==0 || ch[root][0]==0)
+    {
+        root=ch[root][0]+ch[root][1];
+        pre[root]=0;
+        return;
+    }
+    int k=Get_Min(ch[root][1]);//找到右子树中最小的
+    Splay(k,root);//旋转过来，使得右子树没有左孩子
+    ch[ch[root][1]][0]=ch[root][0];
+    root=ch[root][1];
+    pre[ch[root][0]]=root;
+    pre[root]=0;
+    Push_Up(root);
+}
 
 
