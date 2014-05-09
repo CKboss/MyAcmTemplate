@@ -1,5 +1,5 @@
 /*
-prim 在稠密图上效果更好的最短路
+prim 在稠密图上效果更好的MST
 */
 int dist[2200];
 bool vis[2200];
