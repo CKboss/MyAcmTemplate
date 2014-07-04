@@ -71,7 +71,7 @@ void SAM_build(char *s)
 }
 
 
-/*拓扑排序和Left,Rihgt,num*/
+/*拓扑排序和Left,Right,num*/
 
 
  ///get tupo sort
