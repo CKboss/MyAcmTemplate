@@ -69,3 +69,41 @@ void SAM_build(char *s)
     for(int i=0;i<len;i++)
         SAM_add(s[i]-'a',i+1);
 }
+
+
+/*拓扑排序和Left,Rihgt,num*/
+
+
+ ///get tupo sort
+    for(int i=0;i<SAM_size;i++)
+        c[SAM_node[i].len]++;
+    for(int i=1;i<=len;i++)
+        c[i]+=c[i-1];
+    for(int i=0;i<SAM_size;i++)
+        top[--c[SAM_node[i].len]]=&SAM_node[i];
+
+    ///get L,R,num
+    SAM_Node *p=SAM_root;
+    for(;p->len!=len;p=p->next[str[p->len]-'a'])
+    {
+        num[p->id]=1;
+        L[p->id]=R[p->id]=p->len;
+    }
+    for(int i=SAM_size-1;i>=0;i--)
+    {
+        p=top[i];
+        if(L[p->id]==0&&R[p->id]==0)
+        {
+            L[p->id]=R[p->id]=p->pos;
+        }
+        if(p->fa)
+        {
+            SAM_Node *q=p->fa;
+            num[q->id]+=num[p->id];
+            if(L[q->id]==0||L[q->id]>L[p->id])
+                L[q->id]=L[p->id];
+            if(R[q->id]==0||R[q->id]<R[p->id])
+                R[q->id]=R[p->id];
+        }
+    }
+
