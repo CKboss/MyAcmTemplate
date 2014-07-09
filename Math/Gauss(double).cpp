@@ -27,7 +27,7 @@ bool Gauss()
         for(j=col+1;j<val;j++)
             a[k][j]/=a[k][col];
         a[k][col]=1;
-        for(int i=0;i<equ;i++)
+        for(i=0;i<equ;i++)
         {
             if(i!=k)
             {
