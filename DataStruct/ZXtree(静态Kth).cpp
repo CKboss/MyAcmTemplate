@@ -29,7 +29,7 @@ int build(int l,int r)
 {
 	int root=tot++,temp=root;
 	c[root]=0;
-	if(l==r)
+	if(l!=r)
 	{
 		int mid=(l+r)/2;
 		lson[root]=build(l,mid);
