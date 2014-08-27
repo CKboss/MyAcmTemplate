@@ -1,5 +1,5 @@
 
-/*简单的字符串has*/
+/*简单的字符串hash*/
 
 ull xp[maxn],hash[maxn];
 
