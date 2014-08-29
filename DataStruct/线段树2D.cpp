@@ -1,3 +1,5 @@
+/*二维线段树  单点更新 最值,sum维护 */
+
 #define lson l,m,rt<<1  
 #define rson m+1,r,rt<<1|1  
   
