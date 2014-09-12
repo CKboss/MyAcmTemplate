@@ -1,4 +1,6 @@
 
+//////表示最大费用最大流要改动的地方  SPFA部分，加边和结果都不需要将值取反
+
 struct Edge
 {
 	int to,next,cap,flow,cost;
@@ -34,7 +36,7 @@ bool spfa(int s,int t)
 	queue<int> q;
 	for(int i=0;i<N;i++)
 	{
-		dist[i]=INF;vis[i]=false; pre[i]=-1;
+		dist[i]=INF;vis[i]=false; pre[i]=-1;///////////
 	}
 	dist[s]=0; vis[s]=true; q.push(s);
 	while(!q.empty())
@@ -46,7 +48,7 @@ bool spfa(int s,int t)
 		{
 			int v=edge[i].to;
 			if(edge[i].cap>edge[i].flow&&
-				dist[v]>dist[u]+edge[i].cost)
+				dist[v]>dist[u]+edge[i].cost)/////////
 			{
 				dist[v]=dist[u]+edge[i].cost;
 				pre[v]=i;
@@ -84,4 +86,5 @@ int MinCostMaxFlow(int s,int t,int& cost)
 	}
 	return flow;
 }
+
 
