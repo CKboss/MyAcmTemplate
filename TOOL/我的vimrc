@@ -1,0 +1,25 @@
+
+syntax on
+syntax enable
+set cindent
+set mouse=a
+set tabstop=4
+set shiftwidth=4
+set nu
+set nocompatible
+set showcmd
+set ignorecase smartcase
+set hlsearch
+
+//color solarized
+set background=light
+
+set gfn=Consolas\ 14
+
+map <F5> :call Run()<CR>
+func! Run()
+    exec "w"
+    exec "!g++ % -g -o %<"
+    exec "!./%<"
+endfunc
+
