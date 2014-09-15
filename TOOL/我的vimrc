@@ -27,7 +27,7 @@ endfunc
 /********编译运行脚本***************/
 
 g++ TITLE.cpp -o TITLE
-echo -------TITLE编译成功--------
+echo -------TITLE编译结束--------
 ./TITLE
 echo --------按任意键结束--------
 read
