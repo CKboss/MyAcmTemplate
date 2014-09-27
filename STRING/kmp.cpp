@@ -25,6 +25,8 @@ void kmp(char* t,char* p,int* f)
         if(j==m)
         {
             ///i-m+1
+            /// ans++; 
+            j=f[j];
         }
     }
 }
