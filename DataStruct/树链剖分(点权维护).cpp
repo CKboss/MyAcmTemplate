@@ -1,4 +1,7 @@
-/*树链剖分+树状数组*/
+/*
+树链剖分+树状数组 维护路径上的点
+HDOJ3966
+*/
 
 #include <iostream>
 #include <cstdio>
