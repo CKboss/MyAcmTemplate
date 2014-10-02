@@ -36,6 +36,9 @@ void add_edge(int u,int v)
 int fa[maxn],deep[maxn],num[maxn],son[maxn];
 int top[maxn],p[maxn],rp[maxn],pos;
 
+// fa 父节点 deep 深度 num 孩子数 son 重儿子
+// top 链顶点 p 再数据结构中位置 rp p的反 
+
 void init()
 {
 	init_edge();
