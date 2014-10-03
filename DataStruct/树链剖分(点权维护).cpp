@@ -1,5 +1,5 @@
 /*
-树链剖分+树状数组 维护路径上的点
+树链剖分+树状数组 维护路径上的点/边
 HDOJ3966
 */
 
@@ -159,4 +159,24 @@ int main()
     }
     return 0;
 }
+
+
+//边权维护
+void Change2(int u,int v,int k)  
+{  
+    int f1=top[u],f2=top[v];  
+    while(f1!=f2)  
+    {  
+        if(deep[f1]<deep[f2])  
+        {  
+            swap(f1,f2); swap(u,v);  
+        }  
+        ADD(1,p[f1]-1,k); ADD(1,p[u],-k);  
+        u=fa[f1]; f1=top[u];  
+    }  
+    if(u==v) return ;  
+    if(deep[u]<deep[v]) swap(u,v);  
+    ADD(1,p[son[v]]-1,k);  
+    ADD(1,p[u],-k);  
+}  
 
