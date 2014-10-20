@@ -1,31 +1,32 @@
 /*
-  DLX重复覆盖 HDOJ2828
+  DLX重复覆盖 FZU686
 */
 
 #include <iostream>
-#include <cstring>
 #include <cstdio>
+#include <cstring>
 #include <algorithm>
 
 using namespace std;
 
-const int maxn=1010,maxm=510;
+const int maxn=250,maxm=250;
 const int maxnode=maxn*maxm;
 const int INF=0x3f3f3f3f;
 
 int n,m;
-bool flag;
+int GA[20][20];
 
 struct DLX
 {
     int n,m,size;
     int U[maxnode],D[maxnode],R[maxnode],L[maxnode],Row[maxnode],Col[maxnode];
-    int H[maxn],S[maxm];
-    int ansd,ans[maxn];
-    int LAMP[maxn];
-    bool vis[maxn];
+    int H[maxnode],S[maxnode];
+    bool vis[maxm];
+    int ansd;
+
     void init(int _n,int _m)
     {
+        ansd=INF;
         n=_n; m=_m;
         for(int i=0;i<=m;i++)
         {
@@ -36,14 +37,13 @@ struct DLX
         size=m;
         for(int i=1;i<=n;i++)
         {
-            vis[i]=false;
-            LAMP[i]=0;
             H[i]=-1;
         }
-        flag=false;
     }
+
     void Link(int r,int c)
     {
+        //cout<<"Link: "<<r<<","<<c<<endl;
         ++S[Col[++size]=c];
         Row[size]=r;
         D[size]=D[c];
@@ -69,44 +69,42 @@ struct DLX
         for(int i=U[c];i!=c;i=U[i])
             L[R[i]]=R[L[i]]=i;
     }
+    int Astart()
+    {
+        int ret=0;
+        for(int i=R[0];i!=0;i=R[i]) vis[i]=true;
+        for(int c=R[0];c!=0;c=R[c])
+        {
+            if(vis[c]==true)
+            {
+                ret++;
+                vis[c]=false;
+                for(int i=D[c];i!=c;i=D[i])
+                    for(int j=R[i];j!=i;j=R[j])
+                        vis[Col[j]]=false;
+            }
+        }
+        return ret;
+    }
     void Dance(int d)
     {
-        if(flag) return ;
+        if(d+Astart()>=ansd) return ;
         if(R[0]==0)
         {
-            ///find ans
-            for(int i=0;i<d;i++)
-            {
-               int lamp=(ans[i]+1)/2;
-               if(ans[i]%2) LAMP[lamp]=1;
-            }
-            for(int i=1;i<=n/2;i++)
-            {
-                if(LAMP[i]==1) printf("ON");
-                else printf("OFF");
-                if(i!=n/2) putchar(32); else putchar(10);
-            }
-            flag=true;
+            ///find ans;
+            ansd=min(ansd,d);
             return ;
         }
         int c=R[0];
         for(int i=R[0];i!=0;i=R[i])
-        {
             if(S[i]<S[c]) c=i;
-        }
         for(int i=D[c];i!=c;i=D[i])
         {
-            if(vis[Row[i]]) continue;
-            int r1=Row[i],r2=Row[i];
-            if(r1%2==0) r2--;else r2++;
-            vis[r1]=true; vis[r2]=true;
             remove(i);
             for(int j=R[i];j!=i;j=R[j]) remove(j);
-            ans[d]=Row[i];
             Dance(d+1);
             for(int j=L[i];j!=i;j=L[j]) resume(j);
             resume(i);
-            vis[r1]=false; vis[r2]=false;
         }
     }
 };
@@ -117,21 +115,36 @@ int main()
 {
     while(scanf("%d%d",&n,&m)!=EOF)
     {
-        dlx.init(2*m,n);
+        int gn=1;
         for(int i=1;i<=n;i++)
-        {
-            int k;
-            scanf("%d",&k);
-            for(int j=0;j<k;j++)
+            for(int j=1;j<=m;j++)
             {
-                int p; char sw[20];
-                scanf("%d%s",&p,sw);
-                if(sw[1]=='N') dlx.Link(2*p-1,i);
-                else if(sw[1]=='F') dlx.Link(2*p,i);
+                scanf("%d",&GA[i][j]);
+                if(GA[i][j]==1) GA[i][j]=gn++;
+            }
+        int n1,m1;
+        scanf("%d%d",&n1,&m1);
+        ///attract point
+        int ap=(n-n1+1)*(m-m1+1);
+        gn--;
+        dlx.init(ap,gn);
+        for(int i=1;i+n1-1<=n;i++)
+        {
+            for(int j=1;j+m1-1<=m;j++)
+            {
+                int nap=(i-1)*(m-m1+1)+j;
+                for(int ii=i;ii<=i+n1-1;ii++)
+                {
+                    for(int jj=j;jj<=j+m1-1;jj++)
+                    {
+                        if(GA[ii][jj])
+                            dlx.Link(nap,GA[ii][jj]);
+                    }
+                }
             }
         }
         dlx.Dance(0);
-        if(flag==false) puts("-1");
+        printf("%d\n",dlx.ansd);
     }
     return 0;
 }
