@@ -41,7 +41,7 @@ double Cross(Point A,Point B) {return A.x*B.y-A.y*B.x;}
 Point Horunit(Point x) {return x/Length(x);}///单位向量
 Point Verunit(Point x) {return Point(-x.y,x.x)/Length(x);}///单位法向量
 
-Point Rotate(Point A,double rad)///逆时针旋转
+Point Rotate(Point A,double rad)///逆时针旋转(围绕原点)
 {
     return Point(A.x*cos(rad)-A.y*sin(rad),A.x*sin(rad)+A.y*cos(rad));
 }
