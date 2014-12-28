@@ -24,4 +24,21 @@ vector<Point> CovexHull(vector<Point>& p)
   return ch;
 }
 
-
+/// n^2 旋转卡壳求凸包内接三角形的面积
+double Rotating_Calipers(vector<Point>& p,int n)  
+{  
+    double ans=0;  
+    for(int i=0;i<n;i++)  
+    {  
+        int j=(i+1)%n;  
+        int k=(j+1)%n;  
+        while(j!=i&&k!=i)  
+        {  
+            ans=max(ans,Area2(p[i],p[j],p[k]));  
+            while(Cross(p[i]-p[j],p[(k+1)%n]-p[k])<0)  
+                k=(k+1)%n;  
+            j=(j+1)%n;  
+        }  
+    }  
+    return ans;  
+}  
