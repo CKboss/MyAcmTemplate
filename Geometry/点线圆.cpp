@@ -316,6 +316,34 @@ double Circle_Circle_Area_of_overlap(Circle c1, Circle c2)
     return c1.r*c1.r*t1 + c2.r*c2.r*t2 - d*c1.r*sin(t1);
 }
 
+/// 增量法最小圆覆盖
+void min_cover_circle(Point p[],int n,Circle& c)  
+{  
+    c.c=p[0]; c.r=0;  
+    for(int i=1;i<n;i++)  
+    {  
+        if(dcmp(Length(p[i]-c.c)-c.r)>0)  
+        {  
+            c.c=p[i]; c.r=0;  
+            for(int j=0;j<i;j++)  
+            {  
+                if(dcmp(Length(p[j]-c.c)-c.r)>0)  
+                {  
+                    c.c=(Point){(p[i].x+p[j].x)/2,(p[i].y+p[j].y)/2};  
+                    c.r=Length(p[j]-p[i])/2.;  
+                    for(int k=0;k<j;k++)  
+                    {  
+                        if(dcmp(Length(p[k]-c.c)-c.r)>0)  
+                        {  
+                            c=CircumscribedCircle(p[i],p[j],p[k]);  
+                        }  
+                    }  
+                }  
+            }  
+        }  
+    }  
+}  
+
 char op[200];
 double a[10];
 Point v[10];
