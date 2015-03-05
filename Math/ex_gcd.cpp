@@ -26,7 +26,7 @@ LL inv(int a,int n)
   else return (x%mod+mod)%mod;
 }
 
-/* 预处逆元 及 组合数的模 */
+/* 预处理逆元 及 组合数的模 */
 
 LL inv[maxn];  
 LL jc[maxn],jcv[maxn];  // 阶乘 阶乘逆
