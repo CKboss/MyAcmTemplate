@@ -63,10 +63,24 @@ endfunc
 
 
 /********编译运行脚本***************/
-
+#!bin/bash
 g++ TITLE.cpp -o TITLE
 echo -------TITLE编译结束--------
 ./TITLE
 echo --------按任意键结束--------
 read
+
+/*******另一个更全面的Run函数**********/
+
+map <F5> :call Run()<CR>
+func! Run()
+    exec "w"
+	if &filetype is 'cpp' || &filetype is 'c' || &filetype is 'cc'
+   		exec "!clang++ % -g -o %<"
+    	exec "!./%<"
+	elseif &filetype is 'java'
+		exec "!javac\ -d\ .\ %"
+		exec "!java\ %<"
+	endif
+endfunc
 
