@@ -22,3 +22,25 @@ for(int i=n-1;i>=0;i--)
 {
 	hash[i]=hash[i+1]*175+(str[i]-'a'+1);
 }
+
+
+// AP Hash Function 另一种hash函数，双hash的时候用
+unsigned int APHash(char *str)
+{
+    unsigned int hash = 0;
+    int i;
+
+    for (i=0; *str; i++)
+    {
+        if ((i & 1) == 0)
+        {
+            hash ^= ((hash << 7) ^ (*str++) ^ (hash >> 3));
+        }
+        else
+        {
+            hash ^= (~((hash << 11) ^ (*str++) ^ (hash >> 5)));
+        }
+    }
+
+    return (hash & 0x7FFFFFFF);
+}
