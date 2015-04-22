@@ -29,9 +29,16 @@ void packMU(int cost,int weight,int num)
 	pack01(cost*num,weight*num);
 }
 
-///分组背包
-for(int i=1;i<=n;i++)///每一组
-	for(int v=V;v>=0;v--)///01背包
-		for(int k=0;k<n&&v[k]<=v;k++)///对该组内每一个物品
-			dp[i][k]=max(dp[i][k],dp[i-1][V-v[k]]+C[k]);
+///分组背包 c组背包,容量为k,每组物品从mn~mx
+for(int i=1;i<=c;i++) /// 每一组背包
+{
+	for(int v=k;v>=0;v--) /// 背包容量
+	{
+		dp[i][v]=max(dp[i][v],dp[i-1][v]);
+		for(int j=mn[i];j<=mx[i]&&j<=v;j++) /// 第i组的每一个物品
+		{
+			dp[i][v]=max(dp[i][v],dp[i-1][v-j]+j);
+		}
+	}
+}
 
