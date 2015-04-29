@@ -9,6 +9,7 @@ Matrix-Tree 定理(Kirchhoff 矩阵-树定理)
 表示。
 */
 
+/// LD版
 
 typedef long double LD;  
   
@@ -53,3 +54,45 @@ LD det(LD a[][maxn],int n)
     if(sign&1) ret=-ret;  
     return ret;  
 }  
+
+/// 取mod版
+
+LL inv(LL a,LL m)
+{
+	if(a==1) return 1;
+	return inv(m%a,m)*(m-m/a)%m;
+}
+
+LL det(LL a[][maxn],int n)
+{
+	for(int i=0;i<n;i++)
+		for(int j=0;j<n;j++)
+			b[i][j]=(a[i][j]+MOD)%MOD;
+	int res=1;
+	for(int i=0;i<n;i++)
+	{
+		for(int j=i;j<n;j++)
+		{
+			if(b[j][i]!=0)
+			{
+				for(int k=i;k<n;k++)
+					swap(b[i][k],b[j][k]);
+				if(i!=j)
+					res=(MOD-res)%MOD;
+				break;
+			}
+		}
+		if(b[i][i]==0)
+		{
+			res=-1; break;
+		}
+		for(int j=i+1;j<n;j++)
+		{
+			LL mut=(b[j][i]*inv(b[i][i],MOD))%MOD;
+			for(int k=i;k<n;k++)
+				b[j][k]=(b[j][k]-(b[i][k]*mut)%MOD+MOD)%MOD;
+		}
+		res=(res*b[i][i])%MOD;
+	}
+	return res;
+}
