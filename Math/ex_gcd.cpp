@@ -2,29 +2,22 @@
 /* a*x + b*y = gcd(a,b)
 中 abs(x)+abs(y) 最小的解
 */
-
-void ex_gcd(LL a,LL b,LL &d,LL &x,LL &y)
-{
-	if(!b)
-	{
-		d=a; x=1; y=0;
-	}
-	else
-	{
-		ex_gcd(b,a%b,d,y,x);
-		y-=a/b*x;
-	}	
-}
-
-/* a和n的乘法逆元 */
-
-LL inv(int a,int n)
-{
-  LL d,x,y;
-  ex_gcd(a,n,d,x,y);
-  if(d!=1) retunrn -1;
-  else return (x%mod+mod)%mod;
-}
+  
+void ex_gcd(LL a,LL b,LL& d,LL& x,LL &y)  
+{  
+    if(!b) { d=a; x=1; y=0; }  
+    else { ex_gcd(b,a%b,d,y,x); y-=x*(a/b); }  
+}  
+ 
+// a对应模n的乘法逆元
+ 
+LL inv(LL a,LL n)  
+{  
+    LL d,x,y;  
+    ex_gcd(a,n,d,x,y);  
+    return (d==1)?(x+n)%n:-1;  
+}  
+  
 
 /* 预处理逆元 及 组合数的模 */
 
