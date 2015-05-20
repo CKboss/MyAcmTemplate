@@ -47,3 +47,32 @@ int main()
 {
     return 0;
 }
+
+/* 堆优化dijkstra
+
+void dijkstra()
+{
+	memset(dist,63,sizeof(dist));
+	dist[S]=0;
+	priority_queue<pII> q; /// -距离,点
+	q.push(make_pair(0,S));
+
+	while(!q.empty())
+	{
+		pII tp=q.top(); q.pop();
+		LL u=tp.second;
+		if(vis[u]==true) continue;
+		vis[u]=true;
+		for(LL i=Adj[u];~i;i=edge[i].next)
+		{
+			LL v=edge[i].to;
+			LL len=edge[i].len;
+			if(vis[v]) continue;
+			if(dist[v]>dist[u]+len)
+			{
+				dist[v]=dist[u]+len;
+				q.push(make_pair(-dist[v],v));
+			}
+		}
+	}
+}
