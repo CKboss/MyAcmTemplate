@@ -48,7 +48,7 @@ int main()
     return 0;
 }
 
-/* 堆优化dijkstra
+// 堆优化dijkstra
 
 void dijkstra()
 {
