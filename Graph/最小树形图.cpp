@@ -43,7 +43,7 @@ int zhuliu(int root,int n,int m,Edge edge[])
         for(int i=0;i<n;i++)  
         {  
             res+=in[i];  
-            v=i;  
+            int v=i;  
             while(vis[v]!=i&&id[v]==-1&&v!=root)  
             {  
                 vis[v]=i; v=pre[v];  
