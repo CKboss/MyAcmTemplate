@@ -76,6 +76,7 @@ int MinCostMaxFlow(int s,int t,int& cost)
 			if(Min>edge[i].cap-edge[i].flow)
 				Min=edge[i].cap-edge[i].flow;
 		}
+		/////不要求满流而只求费用最值的话,在这里判断dist[t]的值并停下来
 		for(int i=pre[t];~i;i=pre[edge[i^1].to])
 		{
 			edge[i].flow+=Min;
