@@ -22,6 +22,23 @@ S－－ａ－＞１－ａ－－＞3－－ａ－－＞5
 ｜　　　　ｂ　　　　　　　　　　　　　ａ
 ｜　　　　ｖ　　　　　　　　　　　　　｜
 ｂ－－－＞2－ａ－－＞7－ａ－－－－＞８
+
+banana
+1--- a --->6
+1--- b --->2
+1--- n --->8
+2--- a --->3
+3--- n --->4
+4--- a --->5
+5--- n --->7
+6--- n --->8
+7--- a --->9
+8--- a --->10
+10--- n --->7
+
+num:
+7,1,1,1,1,3,1,2,1,2,
+
 */
 
 const int CHAR=26,maxn=251000;
@@ -57,7 +74,7 @@ SAM_Node *newSAM_Node(SAM_Node *p)
 
 void SAM_init()
 {
-    SAM_size=0;
+    SAM_size=1;
     SAM_root=SAM_last=newSAM_Node(0);
     SAM_node[0].pos=0;
 }
@@ -102,6 +119,9 @@ SAM_Node* top[maxn];
   
 void Count(char str[],int len)  
 {  
+    memset(c,0,sizeof(c));
+    memset(num,0,sizeof(num));
+    
     for(int i=0;i<SAM_size;i++) c[SAM_node[i].len]++;  
     for(int i=1;i<=len;i++) c[i]+=c[i-1];  
     for(int i=0;i<SAM_size;i++) top[--c[SAM_node[i].len]]=&SAM_node[i];  
