@@ -42,3 +42,30 @@ double Rotating_Calipers(vector<Point>& p,int n)
     }  
     return ans;  
 }  
+
+
+/// 判断点是否在多边形内
+/// 凸凹多边形均可
+
+bool OnSegment(Point p,Point a,Point b)
+{
+	if(dcmp(Cross(p-a,p-b)))return 0;
+    return dcmp(a.x-p.x)*dcmp(b.x-p.x)<=0&&dcmp(a.y-p.y)*dcmp(b.y-p.y)<=0;
+}
+
+bool isInPolygon(vector<Point>& poly,int n,Point p)
+{
+	int wn=0;
+	for(int i=0;i<n;i++)
+	{
+		//// 在边界上
+		if(OnSegment(p,poly[i],poly[(i+1)%n])==true) return -1; /// onside
+		int k=dcmp(Cross(poly[(i+1)%n]-poly[i],p-poly[i]));
+		int d1=dcmp(poly[i].y-p.y);
+		int d2=dcmp(poly[(i+1)%n].y-p.y);
+		if(k>0&&d1<=0&&d2>0) wn++;
+		if(k<0&&d2<=0&&d1>0) wn--;
+	}
+	if(wn!=0) return 1; /// inside
+	return 0; /// outside;
+}
