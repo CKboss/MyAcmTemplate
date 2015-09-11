@@ -42,22 +42,17 @@ void Show(int u)
     }
 }
 
-int main()
+/// 切掉 u ---> v
+void cutUV(int u,int v)
 {
-    int m;
-    cin>>m;
-    Init();
-    while(m--)
-    {
-        int a,b;
-        cin>>a>>b;
-        Add_Edge(a,b);
-    }
-
-    for(int i=1;i<=5;i++)
-    {
-        Show(i);
-    }
-
-    return 0;
+	int last=Adj[u];
+	for(int i=Adj[u];~i;i=edge[i].next)
+	{
+		if(edge[i].to==v)
+		{
+			if(edge[last].next!=edge[i].next) edge[last].next=edge[i].next;
+			else Adj[u]=edge[i].next;
+		}
+		last=i;
+	}
 }
