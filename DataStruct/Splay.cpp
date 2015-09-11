@@ -412,3 +412,18 @@ void Remove_Root()//删掉根结点
 }
 
 
+/*****************DEBUG*********************/  
+  
+void SHOW(int x)  
+{  
+    Push_Down(x);  
+    if(ch[x][0]) SHOW(ch[x][0]);  
+    printf("x: %d size: %d pre: %d left: %d right: %d key: %d\n",x,sz[x],pre[x],ch[x][0],ch[x][1],key[x]);  
+    if(ch[x][1]) SHOW(ch[x][1]);  
+}  
+  
+void DEBUG()  
+{  
+    cout<<"..........debug.............."<<endl;  
+    SHOW(root);  
+}  
