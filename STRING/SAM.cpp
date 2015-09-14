@@ -163,6 +163,7 @@ void Count(char str[],int len)
         L[p->id]=R[p->id]=p->len;
         num[p->id]=1;
     }
+    L[p->id]=R[p->id]=p->len;
     num[p->id]=1;
 
     for(int i=SAM_size-1;i>=0;i--)
