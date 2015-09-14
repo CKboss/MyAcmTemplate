@@ -142,3 +142,45 @@ void Count(char str[],int len)
         }  
     }  
 }  
+
+/* L , R 该状态出现的最左和最右位置 */
+
+void Count(char str[],int len)
+{
+    memset(c,0,sizeof(c));
+    memset(num,0,sizeof(num));
+
+    for(int i=0;i<SAM_size;i++) c[SAM_node[i].len]++;
+    for(int i=1;i<=len;i++) c[i]+=c[i-1];
+    for(int i=0;i<SAM_size;i++) top[--c[SAM_node[i].len]]=&SAM_node[i];
+
+    memset(L,0,sizeof(L));
+    memset(R,0,sizeof(R));
+
+    SAM_Node *p=SAM_root;
+    for(;p->len!=len;p=p->next[str[p->len]-'a'])
+    {
+        L[p->id]=R[p->id]=p->len;
+        num[p->id]=1;
+    }
+    num[p->id]=1;
+
+    for(int i=SAM_size-1;i>=0;i--)
+    {
+        p=top[i];
+        if(L[p->id]==0&&R[p->id]==0)
+        {
+            L[p->id]=R[p->id]=p->pos;
+        }
+        if(p->fa)
+        {
+            SAM_Node* q=p->fa;
+            if(L[q->id]==0||L[q->id]>L[p->id])
+                L[q->id]=L[p->id];
+            if(R[q->id]==0||R[q->id]<R[p->id])
+                R[q->id]=R[p->id];
+
+            num[q->id]+=num[p->id];
+        }
+    }
+}
