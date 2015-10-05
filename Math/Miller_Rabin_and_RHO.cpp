@@ -71,3 +71,58 @@ bool Miller_Rabin(LL n)
     return true;  
 }  
   
+/********** RHO *************/
+
+LL gcd(LL a,LL b)
+{
+	LL t;
+	while(b)
+	{
+		t=a;
+		a=b;
+		b=t%b;
+	}
+	if(a>=0) return a;
+	return -a;
+}
+
+LL pollard_rho(LL x,LL c)
+{
+	LL i=1,k=2;
+	srand(22333);
+	LL x0=rand()%(x-1)+1;
+	LL y=x0;
+	while(true)
+	{
+		i++;
+		x0=(mult_mod(x0,x0,x)+c)%x;
+		LL d=gcd(y-x0,x);
+		if(d!=1&&d!=x) return d;
+		if(y==x0) return x;
+		if(i==k)
+		{
+			y=x0; k+=k;
+		}
+	}
+}
+
+void findfac(LL n,int k)
+{
+	if(n==1) return ;
+	if(Miller_Rabin(n))
+	{
+		factor[tol++]=n;
+		return ;
+	}
+	LL p=n;
+	int c=k;
+	while(p>=n)
+		p=pollard_rho(p,c--);
+	findfac(p,k);
+	findfac(n/p,k);
+}
+
+
+
+tol=0;
+findfac(x,107);
