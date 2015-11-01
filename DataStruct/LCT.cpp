@@ -524,3 +524,30 @@ int main()
     }
   return 0;
 }
+
+
+/******** 将u独立出来 *************/
+void cut(int v)
+{
+    mroot(v);
+    pre[ch[v][0]]=0;
+    rt[ch[v][0]]=true;
+    ch[v][0]=0;
+}
+
+/********* 将v连接到u上 ***********/
+void join(int v,int u)
+{
+    if(!u) cut(v);
+    else
+    {
+        mroot(u);
+        int tv=v;
+        while(!rt[tv]) tv=pre[tv];
+        if(tv!=u)
+        {
+            cut(v);
+            pre[v]=u;
+        }
+    }
+}
