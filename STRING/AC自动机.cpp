@@ -52,6 +52,8 @@ void build()
 	while(!q.empty())
 	{
 		int now=q.front(); q.pop();
+		//// 嵌套串
+		if(End[fail[now]]) End[now]++;
 		for(int i=0;i<26;i++)
 		{
 			if(ch[now][i]==-1)
