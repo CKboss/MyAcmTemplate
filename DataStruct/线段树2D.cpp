@@ -1,5 +1,3 @@
-/*二维线段树  单点更新 最值,sum维护 */
-
 #include <iostream>
 #include <cstdio>
 #include <cstring>
@@ -102,7 +100,7 @@ void updateX(int value,int l,int r,int rt)
   updateY(value,rt,-1,1,m,1);
 }
 
-int queryY(int xrt,int x,int l,int r,int rt)
+int queryY(int xrt,int l,int r,int rt)
 {
   if(yL<=l&&r<=yR)
     {
@@ -112,16 +110,16 @@ int queryY(int xrt,int x,int l,int r,int rt)
     }
   int mid = (l+r)/2;
   int ret=0;
-  if(yL<=mid) ret+=queryY(xrt,x,lson);
-  if(yR>mid) ret+=queryY(xrt,x,rson);
+  if(yL<=mid) ret+=queryY(xrt,lson);
+  if(yR>mid) ret+=queryY(xrt,rson);
   return ret;
 }
 
 int queryX(int l,int r,int rt)
 {
-  if(l==r)
+  if(xL<=l&&r<=xR)
     {
-      int ret=queryY(rt,l,1,m,1);
+      int ret=queryY(rt,1,m,1);
       return ret;
     }
   int mid = (l+r)/2;
